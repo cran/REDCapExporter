@@ -4,7 +4,7 @@
 #' the metadata for the project.
 #'
 #' @param x a \code{rcer_metadata} or \code{rcer_raw_metadata} object
-#' @param factors If \code{TRUE} (default) then variables inputed via drop-down
+#' @param factors If \code{TRUE} (default) then variables reported via drop-down
 #' lists and radio buttons are set up to be \code{factor}s.  If \code{FALSE},
 #' then the column type will be \code{character}.
 #' @param ... not currently used
@@ -29,60 +29,32 @@ col_type.rcer_raw_metadata <- function(x, factors = TRUE, ...) {
 #' @export
 col_type.rcer_metadata <- function(x, factors = TRUE, ...) {
 
-  # Field Types:
-  #   text box
-  #     validation:
-  #       None
-  #       Date (D-M-Y)
-  #       Date (M-D-Y)
-  #       Date (Y-M-D)
-  #       Datetime (D-M-Y-H:M)
-  #       Datetime (M-D-Y H:M)
-  #       DateTime (Y-M-D H:M)
-  #       Datetime w/ seconds (D-M-Y-H:M:S)
-  #       Datetime w/ seconds (M-D-Y H:M:S)
-  #       DateTime w/ seconds (Y-M-D H:M:S)
-  #       Email
-  #       Integer
-  #       Letters Only
-  #       Number
-  #       Number (1 decimal place)
-  #       Number (2 decimal places)
-  #       Phone (North America)
-  #       Postal Code (Canada)
-  #       Social Security Number (US)
-  #       Time (HH:MM)
-  #       Zip Code (US)
-  #   notes box
-  #   calculated field
-  #   multiple choice - drop-down list (single answer)
-  #   multiple choice - radio buttons (signle answer)
-  #   checkboxes (multiple answers)
-  #   yes - no
-  #   true - false
-  #   silder / visual analog scale
-  #   file upload
-  #   descriptive text
-
-
   ## Text Fields
   text_fields <-
     Map(function(nm, tp) {
-          cl <- list()
-          cl[[1]] <-
+          cl <-
             switch(tp,
-                   number   = quote(as.numeric),  #sprintf("as.numeric(%s)", nm),
-                   integer  = quote(as.integer),  #sprintf("as.integer(%s)", nm),
-                   date_mdy = quote(lubridate::ymd), # **WHY?** It appears exported dates are ymd format?  Verify
-                   date_dmy = quote(lubridate::ymd), # **WHY?** It appears exported dates are ymd format?  Verify
-                   date_ymd = quote(lubridate::ymd), # **WHY?** It appears exported dates are ymd format?  Verify
-                              quote(as.character) #sprintf("as.character(%s)", nm)
-                   )
-          cl[[2]] <- as.name(nm)
+                   number               = substitute(as.numeric(xx),                       list(xx = as.name(nm))),
+                   number_1dp           = substitute(as.numeric(xx),                       list(xx = as.name(nm))),
+                   number_2dp           = substitute(as.numeric(xx),                       list(xx = as.name(nm))),
+                   integer              = substitute(as.integer(xx),                       list(xx = as.name(nm))),
+                   date_mdy             = substitute(lubridate::ymd(xx,     quiet = TRUE), list(xx = as.name(nm))),
+                   date_dmy             = substitute(lubridate::ymd(xx,     quiet = TRUE), list(xx = as.name(nm))),
+                   date_ymd             = substitute(lubridate::ymd(xx,     quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_dmy         = substitute(lubridate::ymd_hm(xx,  quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_mdy         = substitute(lubridate::ymd_hm(xx,  quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_ymd         = substitute(lubridate::ymd_hm(xx,  quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_seconds_dmy = substitute(lubridate::ymd_hms(xx, quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_seconds_mdy = substitute(lubridate::ymd_hms(xx, quiet = TRUE), list(xx = as.name(nm))),
+                   datetime_seconds_ymd = substitute(lubridate::ymd_hms(xx, quiet = TRUE), list(xx = as.name(nm))),
+                   time                 = substitute(lubridate::hm(xx,      quiet = TRUE), list(xx = as.name(nm))),
+                   time_mm_ss           = substitute(lubridate::ms(xx,      quiet = TRUE), list(xx = as.name(nm))),
+                                          substitute(as.character(xx),                     list(xx = as.name(nm)))
+            )
           cl
           },
-        nm = x$field_name[x$field_type == "text"],
-        tp = x$text_validation_type_or_show_slider_number[x$field_type == "text"])
+        nm = x$field_name[x$field_type %in% c("notes", "text")],
+        tp = x$text_validation_type_or_show_slider_number[x$field_type %in% c("notes", "text")])
 
   text_fields <- lapply(text_fields, as.call)
 
@@ -90,14 +62,13 @@ col_type.rcer_metadata <- function(x, factors = TRUE, ...) {
   ## Multiple Choice
   mc_fields <-
     Map(function(nm, choices) {
-          sp <- strsplit(choices, split = " \\| ")
-          sp <- lapply(sp, strsplit, split = ", ")
-          sp <- lapply(sp, function(xx) do.call(rbind, xx))
-          sp <- lapply(sp, function(xx) list(lvls = xx[, 1], lbls = xx[, 2]))
+          sp <- strsplit(choices, split = " \\| ")[[1]]
+          lvls <- sub("^(\\d),\\s.+$", "\\1", sp)
+          lbls <- sub("^\\d,\\s(.+)$", "\\1", sp)
           cl <- list(quote(factor),
                      x = as.name(nm),
-                     levels = sp[[1]]$lvls,
-                     labels = sp[[1]]$lbls)
+                     levels = lvls,#sp[[1]]$lvls,
+                     labels = lbls)#sp[[1]]$lbls)
           as.call(cl)
         },
         nm = x$field_name[x$field_type %in% c("radio", "dropdown")],
@@ -115,7 +86,7 @@ col_type.rcer_metadata <- function(x, factors = TRUE, ...) {
           mc_fields)
   }
 
-  # calc fields
+  # calc fields and slider (visual analog scale)
   calc_fields <-
     Map(function(nm) {
            cl <- list()
@@ -123,9 +94,9 @@ col_type.rcer_metadata <- function(x, factors = TRUE, ...) {
            cl[[2]] <- as.name(nm)
            as.call(cl)
         },
-        nm = x$field_name[x$field_type %in% "calc"])
+        nm = x$field_name[x$field_type %in% c("calc", "slider")])
 
-  # yes/no
+  # yes/no and true/false
   yn_fields <-
     Map(function(nm) {
              cl <- list()
@@ -133,10 +104,29 @@ col_type.rcer_metadata <- function(x, factors = TRUE, ...) {
              cl[[2]] <- as.name(nm)
              as.call(cl)
            },
-    nm = x$field_name[x$field_type %in% "yesno"])
+    nm = x$field_name[x$field_type %in% c("yesno", "truefalse")])
+
+  # tools for showing that a form is compelte
+  complete_fields <-
+    Map(function(nm) {
+          cl <- list()
+          cl[[1]] <- quote(factor)
+          cl[[2]] <- as.name(nm)
+          cl[['levels']] <- c(0, 1, 2)
+          cl[['labels']] <- c("Incomplete", "Unverified", "Complete")
+          as.call(cl)
+    },
+    nm = paste(unique(x$form_name), "complete", sep = "_")
+    )
+
+  # set the order of the types to match the order of the field names
+  # checkboxes are ommited as well as there is likely more than one column in
+  # the records object.  See `format_record`
+  rdr <- x$field_name[!(x$field_type %in% c("checkbox", "descriptive", "file"))]
 
 
-  out <- c(text_fields, mc_fields, calc_fields, yn_fields)[x$field_name]
+  out <- c(text_fields, mc_fields, calc_fields, yn_fields)[rdr]
+  out <- c(out, complete_fields)
   class(out) <- c("rcer_col_type", class(out))
   out
 }

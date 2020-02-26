@@ -2,20 +2,37 @@
 # By default, chunks will not be evaluated.  This way the API token will not be
 # required to build this vignette.
 knitr::opts_chunk$set(collapse = TRUE, eval = FALSE)
-library("REDCapExporter")
+
+## ----label = "namespace", eval = TRUE-----------------------------------------
+library(REDCapExporter)
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  vignette(topic = "export2package", package = "REDCapExporter")
+#  vignette(topic = "export", package = "REDCapExporter")
 
-## ----label = "REDCap_sysvar"--------------------------------------------------
+## -----------------------------------------------------------------------------
 #  Sys.setenv(REDCap_API_URI = "https://redcap.ucdenver.edu/api/")
-#  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
 ## -----------------------------------------------------------------------------
 #  Sys.getenv("REDCap_API_format")
 
-## ----label = "namespace", eval = TRUE-----------------------------------------
-library(REDCapExporter)
+## -----------------------------------------------------------------------------
+#  Sys.setenv(REDCap_API_TOKEN = "YOURTOKENHERE")
+
+## -----------------------------------------------------------------------------
+#  Sys.setenv(REDCap_API_TOKEN = getPass::getPass())
+
+## -----------------------------------------------------------------------------
+#  Sys.setenv(USER_KEY = "~/.ssh/vaults")  # ~/.ssh/id_rsa has a passphrase, ~/.ssh/vaults does not.
+#  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
+
+## ----label = "REDCap_API_sysvar"----------------------------------------------
+#  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
+
+## -----------------------------------------------------------------------------
+#  REDCapExporter_keyring_check()
+#  REDCapExporter_add_api_token("Project1")
+#  REDCapExporter_add_api_token("Project2")
+#  Sys.setenv(REDCap_API_TOKEN = REDCapExporter_get_api_token("Project1"))
 
 ## ----label = "args_of_export_content", eval = TRUE----------------------------
 args(export_content)

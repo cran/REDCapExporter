@@ -7,9 +7,10 @@
 #' @param metadata a \code{rcer_metadata} or \code{rcer_raw_metadata} object.
 #' Will be ignored if \code{col_type} is defined.
 #' @param col_type a \code{rcer_col_type} object.
+#' @param class return either a \code{data.frame} or \code{data.table}
 #' @param ... other arguments passed to \code{\link{col_type}}
 #'
-#' @return A \code{data.frame}
+#' @return A \code{data.frame} or \code{data.table}
 #'
 #' @examples
 #'
@@ -18,10 +19,8 @@
 #'
 #' avs <- format_record(avs_raw_record, avs_raw_metadata)
 #'
-#' str(avs)
-#'
 #' @export
-format_record <- function(record, metadata = NULL, col_type = NULL, ...) {
+format_record <- function(record, metadata = NULL, col_type = NULL, class = "data.table", ...) {
 
   if (!is.null(metadata) & !is.null(col_type)) {
     message("Ignoring metadata, using col_type")
@@ -53,7 +52,25 @@ format_record <- function(record, metadata = NULL, col_type = NULL, ...) {
     ct <- col_type
   }
 
-  as.data.frame(lapply(ct, function(x) {eval(x, envir = record)}), stringsAsFactors = FALSE)
+  for (n in names(ct)) {
+    if (n %in% names(record)) {
+      record[[n]] <- eval(ct[[n]], envir = record)
+    }
+  }
+
+  # set the columns in the record corresponding to checkboxes as integer values
+  for (n in metadata$field_name[metadata$field_type == "checkbox"]) {
+    for(nn in grep(paste0(n, "___\\d+"), names(record))) {
+      record[[nn]] <- as.integer(record[[nn]])
+    }
+  }
+
+
+  if (inherits(record, "data.table") | class == "data.table") {
+    record <- as.data.table(record)
+  }
+
+  record
 }
 
 
