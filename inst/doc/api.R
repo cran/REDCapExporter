@@ -28,11 +28,15 @@ library(REDCapExporter)
 ## ----label = "REDCap_API_sysvar"----------------------------------------------
 #  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
-## -----------------------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  REDCapExporter_keyring_check()
 #  REDCapExporter_add_api_token("Project1")
 #  REDCapExporter_add_api_token("Project2")
 #  Sys.setenv(REDCap_API_TOKEN = REDCapExporter_get_api_token("Project1"))
+
+## ----eval = TRUE--------------------------------------------------------------
+data(avs_raw_core)
+lapply(avs_raw_core, class)
 
 ## ----label = "args_of_export_content", eval = TRUE----------------------------
 args(export_content)
@@ -49,10 +53,6 @@ str(avs_raw_metadata)
 ## ----label = "as_data_frame", eval = TRUE-------------------------------------
 avs_metadata <- as.data.frame(avs_raw_metadata)
 str(avs_metadata)
-
-## ----eval = TRUE--------------------------------------------------------------
-data(avs_raw_core)
-lapply(avs_raw_core, class)
 
 ## -----------------------------------------------------------------------------
 #  print(sessionInfo(), local = FALSE)

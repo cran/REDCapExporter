@@ -102,9 +102,9 @@ as.data.table.rcer_raw_user <- function(x, ...) {
 #' @return a \code{data.frame}
 #'
 read_text <- function(x, class = "data.frame") {
-  if (attr(x, "Content-Type")[1] == "text/csv") {
+  if (grepl("text/csv", attr(x, "Content-Type")[1])) {
     out <- utils::read.csv(text = x, colClasses = "character")
-  } else if (attr(x, "Content-Type")[1] == "application/json") {
+  } else if (grepl("application/json", attr(x, "Content-Type")[1])) {
     out <- rjson::fromJSON(json_str = x)
     out <- lapply(out, as.data.frame, stringsAsFactors = FALSE)
     out <- do.call(rbind, out)
