@@ -4,7 +4,7 @@
 \alias{format_record}
 \title{Format Record}
 \usage{
-format_record(x, metadata = NULL, col_type = NULL, class = "data.table", ...)
+format_record(x, metadata = NULL, col_type = NULL, ...)
 }
 \arguments{
 \item{x}{a \code{rcer_rccore}, \code{rcer_raw_record}, or \code{rcer_record} object.}
@@ -14,12 +14,10 @@ Will be ignored if \code{col_type} is defined.}
 
 \item{col_type}{a \code{rcer_col_type} object.}
 
-\item{class}{return either a \code{data.frame} or \code{data.table}}
-
 \item{...}{other arguments passed to \code{\link{col_type}}}
 }
 \value{
-A \code{data.frame} or \code{data.table}
+A \code{data.frame}
 }
 \description{
 Use REDCap project metadata to build a well formatted \code{data.frame} for
@@ -30,22 +28,17 @@ the record.
 data("avs_raw_metadata")
 data("avs_raw_record")
 
-avs <- format_record(avs_raw_record, avs_raw_metadata, class = "data.frame")
+# Formatting the record can be called in different ways and the same result
+# will be generated
+identical(
+  format_record(avs_raw_record, avs_raw_metadata),
+  format_record(avs_raw_core)
+)
+
+avs <- format_record(avs_raw_record, avs_raw_metadata)
 avs
-
-avs <- format_record(avs_raw_core, class = "data.frame")
-head(avs)
-
-avs <- format_record(avs_raw_core, class = "data.table")
-avs$atoi
-as.numeric(avs$atoi)
-avs[, `:=`(atoi_seconds = as.numeric(atoi),
-           atoi_seconds_postseason = as.numeric(atoi_postseason),
-           atoi = as.character(atoi),
-           atoi_postseason = as.character(atoi_postseason))]
-avs[, .SD, .SDcols = patterns("atoi")]
 
 }
 \seealso{
-\link{export_core}
+\code{\link{export_core}}, \code{\link{export_content}}, \code{vignette("formatting", package = "REDCapExporter")}
 }

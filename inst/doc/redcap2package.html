@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>REDCap Projects as R Data Packages</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">REDCap Projects as R Data Packages</h1>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#exporting-a-redcap-project-to-a-r-data-package" id="toc-exporting-a-redcap-project-to-a-r-data-package"><span class="toc-section-number">1</span> Exporting a REDCap Project to a R
+Data Package</a>
+<ul>
+<li><a href="#details-on-exported-files" id="toc-details-on-exported-files"><span class="toc-section-number">1.1</span> Details on exported Files</a></li>
+<li><a href="#using-the-exported-package" id="toc-using-the-exported-package"><span class="toc-section-number">1.2</span> Using the Exported
+Package</a></li>
+</ul></li>
+</ul>
+</div>
+
+<p>The purpose of this vignette is to show how to export a REDCap
+project into a R data package.</p>
+<p>Possible use cases for this are:</p>
+<ol style="list-style-type: decimal">
+<li><p>You have data in a REDCap project that needs to be
+archived.</p></li>
+<li><p>Snapshots of REDCap projects.</p></li>
+<li><p>Sharing data with other analysts who have authority to see and
+work on the data, but for some reason may not have access to
+REDCap.</p></li>
+</ol>
+<p>This vignette will assume you are able to call
+<code>export_core</code> successfully. Given that call requires access
+to REDCap, the example data set <code>avs_raw_core</code> is
+provided.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">data</span>(avs_raw_core, <span class="at">package =</span> <span class="st">&quot;REDCapExporter&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">str</span>(avs_raw_core)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="do">## List of 4</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">##  $ project_raw : &#39;rcer_raw_project&#39; chr &quot;project_id,project_title,creation_time,production_time,in_production,project_language,purpose,purpose_other,pro&quot;| __truncated__</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0.000017 0 0.000105 0.142771 ...</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2024-09-19 11:09:21&quot;</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">##  $ metadata_raw: &#39;rcer_raw_metadata&#39; chr &quot;field_name,form_name,section_header,field_type,field_label,select_choices_or_calculations,field_note,text_valid&quot;| __truncated__</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0.000017 0 0.000099 0.133926 ...</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2024-09-19 11:09:21&quot;</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##  $ user_raw    : &#39;rcer_raw_user&#39; chr &quot;username,email,firstname,lastname,expiration,data_access_group,data_access_group_id,design,alerts,user_rights,d&quot;| __truncated__</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0.000022 0 0.0001 0.118193 ...</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2024-09-19 11:09:21&quot;</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="do">##  $ record_raw  : &#39;rcer_raw_record&#39; chr &quot;record_id,uniform_number,firstname,lastname,hof,nationality,position,birthdate,first_nhl_game,last_nhl_game,hei&quot;| __truncated__</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0.000015 0 0.0001 0.155303 ...</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2024-09-19 11:09:21&quot;</span></span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="do">##  - attr(*, &quot;class&quot;)= chr &quot;rcer_rccore&quot;</span></span></code></pre></div>
+<p><code>avs_raw_core</code> is the result of calling
+<code>export_core</code> and contains data on the 2000-2001 Stanley Cup
+Champion Colorado Avalanche. The data was transcribed from <a href="https://www.hockey-reference.com/teams/COL/2001.html">Hockey
+Reference</a> into a REDCap Project hosed at the University of Colorado
+Denver.</p>
+<div id="exporting-a-redcap-project-to-a-r-data-package" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Exporting a REDCap
+Project to a R Data Package</h1>
+<p>Exporting a REDCap project to a R data package is done with a call to
+<code>build_r_data_package</code>. If the user passes the uri for the
+API and an API token a call to <code>export_core</code> will be made.
+Alternatively, <code>build_r_data_package</code> is an S3 method and can
+be applied to a <code>rcer_rccore</code> object.</p>
+<p>To build the skeleton of a R data package you will need to pass in
+the core export from the REDCap project, a path for were the source code
+for the data package will be written, and some some information about
+the users. In this context, users are the persons who have, or had,
+access to the REDCap project and are listed under the UserRights section
+of the REDCap project. The user data from REDCap is used to construct
+the Author section of the DESCRIPTION file for the R data package to be
+constructed. By default, all users are listed as ‘contributors’.
+Modification of the roles can be provide by a named list object. In the
+example below, the user dewittp is going to assigned the creator and
+author role. To be a valid R package, at least one user will need to
+have the creator role assigned.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>temppath <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">build_r_data_package</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">x            =</span> avs_raw_core,</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">path         =</span> temppath,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">author_roles =</span> <span class="fu">list</span>(<span class="at">dewittp =</span> <span class="fu">c</span>(<span class="st">&quot;cre&quot;</span>, <span class="st">&quot;aut&quot;</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="do">## Creating source package at /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//RtmpI2CTo3/rcd14465</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="do">## ℹ Updating rcd14465 documentation</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="do">## First time using roxygen2. Upgrading automatically...</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="do">## Setting `RoxygenNote` to &quot;7.3.2&quot;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="do">## ℹ Loading rcd14465</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="do">## Writing &#39;NAMESPACE&#39;</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="do">## Writing &#39;project.Rd&#39;</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="do">## Writing &#39;metadata.Rd&#39;</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="do">## Writing &#39;user.Rd&#39;</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="do">## Writing &#39;record.Rd&#39;</span></span></code></pre></div>
+<p>The resulting directory is: echo = FALSE, results = “markup”</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(temppath)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">## /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//RtmpI2CTo3</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## └── rcd14465</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="do">##     ├── DESCRIPTION</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">##     ├── LICENSE</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="do">##     ├── NAMESPACE</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="do">##     ├── R</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="do">##     │   └── datasets.R</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="do">##     ├── data</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="do">##     │   ├── metadata.rda</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="do">##     │   ├── project.rda</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="do">##     │   ├── record.rda</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="do">##     │   └── user.rda</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="do">##     ├── inst</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="do">##     │   └── raw-data</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="do">##     │       ├── metadata.rds</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="do">##     │       ├── project.rds</span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="do">##     │       ├── record.rds</span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="do">##     │       └── user.rds</span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="do">##     └── man</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="do">##         ├── metadata.Rd</span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="do">##         ├── project.Rd</span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="do">##         ├── record.Rd</span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="do">##         └── user.Rd</span></span></code></pre></div>
+<div id="details-on-exported-files" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Details on exported
+Files</h2>
+<p>First, the package directory name. Exported packages from
+<em>REDCapExporter</em> will have the directory name rcd<package-id>.
+This name is also used in the DESCRIPTION file.</p>
+<p>The DESCRIPTION file is</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>prj_dir <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(temppath)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>prj_dir <span class="ot">&lt;-</span> prj_dir[<span class="fu">grepl</span>(<span class="st">&quot;/rcd</span><span class="sc">\\</span><span class="st">d+$&quot;</span>, prj_dir)]</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">read.dcf</span>(<span class="fu">paste</span>(prj_dir, <span class="st">&quot;DESCRIPTION&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)))</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##                 [,1]                                                                                                                                                                                                                                                                                                                                                      </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Package         &quot;rcd14465&quot;                                                                                                                                                                                                                                                                                                                                                </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## Title           &quot;2000-2001 Colorado Avalanche&quot;                                                                                                                                                                                                                                                                                                                            </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Version         &quot;2024.09.19.18.02&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## Authors@R       &quot;c(person(given = \&quot;Tell\&quot;, family = \&quot;Bennett\&quot;, email = \&quot;tell.bennett@ucdenver.edu\&quot;, role = c(\&quot;ctb\&quot;)),\nperson(given = \&quot;Peter\&quot;, family = \&quot;DeWitt\&quot;, email = \&quot;peter.dewitt@cuanschutz.edu\&quot;, role = c(\&quot;cre\&quot;, \&quot;aut\&quot;)),\nperson(given = \&quot;Alexandria\&quot;, family = \&quot;Jensen\&quot;, email = \&quot;alexandria.jensen@cuanschutz.edu\&quot;, role = c(\&quot;ctb\&quot;)))&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Description     &quot;Data and documentation from the REDCap Project.&quot;                                                                                                                                                                                                                                                                                                         </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## License         &quot;file LICENSE&quot;                                                                                                                                                                                                                                                                                                                                            </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">## Encoding        &quot;UTF-8&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">## LazyData        &quot;true&quot;                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## Suggests        &quot;knitr&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## VignetteBuilder &quot;knitr&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## RoxygenNote     &quot;7.3.2&quot;</span></span></code></pre></div>
+<p>The title comes from the project info recorded in REDCap. The version
+number is set as the year.month.day.hour.minute of the export. As noted
+above, the Author field is built from the user data stored in
+REDCap.</p>
+<p>The LICENSE file notes that the package is proprietary and should not
+be installed or distributed to others who are not authorized to have
+access to the data.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">readLines</span>(<span class="fu">paste</span>(prj_dir[<span class="dv">1</span>], <span class="st">&quot;LICENSE&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)), <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="do">## Proprietary</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="do">##       Do not distribute to anyone or to machines which are not authorized to hold the data.</span></span></code></pre></div>
+<p>The raw data exports are stored as .rds files under inst/raw-data so
+that these files will be available in R sessions after installing the
+package.</p>
+<p>The data directory has data.frame versions of the data sets.</p>
+<p>The R/datasets.R file provides the documentation for the data sets
+which can be accessed in an interactive R session.</p>
+</div>
+<div id="using-the-exported-package" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Using the Exported
+Package</h2>
+<p>Let’s install the package and explore the contents.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>tar_ball <span class="ot">&lt;-</span> devtools<span class="sc">::</span><span class="fu">build</span>(<span class="at">pkg =</span> prj_dir)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">## ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## * checking for file ‘/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3/rcd14465/DESCRIPTION’ ... OK</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## * preparing ‘rcd14465’:</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## * checking DESCRIPTION meta-information ... OK</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## * checking for LF line-endings in source and make files and shell scripts</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## * checking for empty or unneeded directories</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">##   NB: this package now depends on R (&gt;= 3.5.0)</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">##   </span><span class="al">WARNING</span><span class="do">: Added dependency on R &gt;= 3.5.0 because serialized objects in</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##   serialize/load version 3 cannot be read in older versions of R.</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">##   File(s) containing such objects:</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##     ‘rcd14465/data/metadata.rda’ ‘rcd14465/data/project.rda’</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">##     ‘rcd14465/data/record.rda’ ‘rcd14465/data/user.rda’</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/metadata.rds’</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/project.rds’</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/record.rds’ ‘rcd14465/inst/raw-data/user.rds’</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="do">## * building ‘rcd14465_2024.09.19.18.02.tar.gz’</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>tar_ball</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="do">## [1] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3/rcd14465_2024.09.19.18.02.tar.gz&quot;</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="at">pkgs =</span> tar_ball, <span class="at">lib =</span> temppath)</span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="do">## inferring &#39;repos = NULL&#39; from &#39;pkgs&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(rcd14465, <span class="at">lib.loc =</span> temppath)</span></code></pre></div>
+<p>The available data sets:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;rcd14465&quot;</span>)<span class="sc">$</span>results</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">##      Package   </span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## [1,] &quot;rcd14465&quot;</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## [2,] &quot;rcd14465&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## [3,] &quot;rcd14465&quot;</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## [4,] &quot;rcd14465&quot;</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">##      LibPath                                                              </span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">## [1,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3&quot;</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## [2,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">## [3,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3&quot;</span></span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">## [4,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpI2CTo3&quot;</span></span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">##      Item       Title     </span></span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">## [1,] &quot;metadata&quot; &quot;Metadata&quot;</span></span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">## [2,] &quot;project&quot;  &quot;Project&quot; </span></span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="do">## [3,] &quot;record&quot;   &quot;Record&quot;  </span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="do">## [4,] &quot;user&quot;     &quot;User&quot;</span></span></code></pre></div>
+<p>A simple data analysis question: how many goals were scored by
+position?</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">aggregate</span>(goals <span class="sc">~</span> position, <span class="at">data =</span> record, <span class="at">FUN =</span> sum)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">##     position goals</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">## 1       Goal     0</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">## 2  Left Wing    71</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">## 3 Right Wing    72</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="do">## 4     Center    93</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="do">## 5    Defence    34</span></span></code></pre></div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

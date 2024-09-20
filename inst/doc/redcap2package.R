@@ -2,18 +2,18 @@
 knitr::opts_chunk$set(collapse = TRUE)
 library(REDCapExporter)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  vignette(topic = "api", package = "REDCapExporter")
-
 ## -----------------------------------------------------------------------------
 data(avs_raw_core, package = "REDCapExporter")
 str(avs_raw_core)
 
 ## -----------------------------------------------------------------------------
 temppath <- tempdir()
-build_r_data_package(x = avs_raw_core,
-                     path = temppath,
-                     author_roles = list(dewittp = c("cre", "aut")))
+
+build_r_data_package(
+  x            = avs_raw_core,
+  path         = temppath,
+  author_roles = list(dewittp = c("cre", "aut"))
+)
 
 ## -----------------------------------------------------------------------------
 fs::dir_tree(temppath)
@@ -44,9 +44,5 @@ do.call(library, args = list(package = "rcd14465", character.only = TRUE, lib.lo
 data(package = "rcd14465")$results
 
 ## -----------------------------------------------------------------------------
-library(data.table)
-as.data.table(record)[, sum(goals), by = position]
-
-## -----------------------------------------------------------------------------
-print(sessionInfo(), local = FALSE)
+aggregate(goals ~ position, data = record, FUN = sum)
 

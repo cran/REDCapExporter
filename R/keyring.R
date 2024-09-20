@@ -22,8 +22,14 @@
 #'
 #' @examples
 #' \dontrun{
+#' # Check if a keyring exisits. If it does not, create one.
 #' REDCapExporter_keyring_check()
+#'
+#' # add token if it does not already exist.  If a token
+#' # already exists, then you will be told so unless overwrite is set to TRUE
 #' REDCapExporter_add_api_token("Project1")
+#'
+#' # get a token and set as an envrionmental variable
 #' Sys.setenv(REDCap_API_TOKEN = REDCapExporter_get_api_token("Project1"))
 #' }
 #'
@@ -46,7 +52,9 @@ REDCapExporter_keyring_check <- function(keyring = "REDCapExporter", password = 
   } else {
     message(sprintf("File based keyring %s exists", keyring))
   }
+
   invisible(TRUE)
+
 }
 
 #' @rdname REDCapExporter_keyring
@@ -59,24 +67,22 @@ REDCapExporter_add_api_token <- function(project, keyring = "REDCapExporter", us
   kr <- keyring::backend_file$new()
   kr$keyring_unlock(keyring = keyring, password = password)
 
-  if (is.null(user)) {
-    user <- Sys.info()[["user"]]
-  }
-
   cannot_get_token <- inherits(try(kr$get(service = project, username = user, keyring = keyring), silent = TRUE), "try-error")
 
   if (overwrite || cannot_get_token) {
-    message(sprintf("Please enter your API token (at the Password: prompt)\n\nProject: %s\nUser: %s\nKeyring: %s\n",
-                    project, user, keyring))
-    kr$set(service = project, username = user, keyring = keyring)
+    message(sprintf("Please enter your API token\n\nProject: %s\nKeyring: %s\n",
+                    project, keyring))
+    kr$set(service = project, username = user, keyring = keyring, prompt = "API Token:")
   } else {
-    message(sprintf("API token exisits for\n\nProject: %s\nUser: %s\nKeyring: %s\n",
-                    project, user, keyring))
+    message(sprintf("API token exisits for\n\nProject: %s\nKeyring: %s\n",
+                    project, keyring))
   }
 
   # lock the keyring
   kr$keyring_lock(keyring = keyring)
+
   invisible(TRUE)
+
 }
 
 #' @rdname REDCapExporter_keyring
@@ -89,7 +95,9 @@ REDCapExporter_get_api_token <- function(project, keyring = "REDCapExporter", us
   kr <- keyring::backend_file$new()
   kr$keyring_unlock(keyring = keyring, password = password)
   token <- kr$get(service = project, username = user, keyring = keyring)
-  kr$keyring_unlock(keyring = keyring, password = password)
+  kr$keyring_lock(keyring = keyring)
+
   invisible(token)
+
 }
 

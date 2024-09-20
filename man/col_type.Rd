@@ -4,7 +4,13 @@
 \alias{col_type}
 \title{Column Types}
 \usage{
-col_type(x, factors = TRUE, ...)
+col_type(
+  x,
+  factors = TRUE,
+  lubridate_args = list(quiet = TRUE, tz = NULL, locale = Sys.getlocale("LC_TIME"),
+    truncated = 0),
+  ...
+)
 }
 \arguments{
 \item{x}{a \code{rcer_metadata} or \code{rcer_raw_metadata} object}
@@ -12,6 +18,9 @@ col_type(x, factors = TRUE, ...)
 \item{factors}{If \code{TRUE} (default) then variables reported via drop-down
 lists and radio buttons are set up to be \code{factor}s.  If \code{FALSE},
 then the column type will be \code{character}.}
+
+\item{lubridate_args}{a list of arguments passed to the date and time parsing
+calls.  See Details.}
 
 \item{...}{not currently used}
 }
@@ -21,6 +30,53 @@ a \code{rcer_col_type} object
 \description{
 Define a type for each column of the records for a REDCap project based on
 the metadata for the project.
+}
+\details{
+REDCap text fields for dates and times are formatted via lubridate
+
+\tabular{ll}{
+  REDCap                \tab lubridate parsing function \cr
+  --------------------- \tab -------------------------- \cr
+  date_mdy              \tab \code{\link[lubridate]{mdy}} \cr
+  date_dmy              \tab \code{\link[lubridate]{dmy}} \cr
+  date_ymd              \tab \code{\link[lubridate]{ymd}} \cr
+  datetime_dmy          \tab \code{\link[lubridate]{dmy_hm}} \cr
+  datetime_mdy          \tab \code{\link[lubridate]{mdy_hm}} \cr
+  datetime_ymd          \tab \code{\link[lubridate]{ymd_hm}} \cr
+  datetime_seconds_dmy  \tab \code{\link[lubridate]{dmy_hms}} \cr
+  datetime_seconds_mdy  \tab \code{\link[lubridate]{mdy_hms}} \cr
+  datetime_seconds_ymd  \tab \code{\link[lubridate]{ymd_hms}} \cr
+  time                  \tab \code{\link[lubridate]{hm}} \cr
+  time_mm_ss            \tab \code{\link[lubridate]{ms}} \cr
+}
+
+Other text files are coerced as
+\tabular{ll}{
+  REDCap                \tab R coercion \cr
+  --------------------- \tab -------------------------- \cr
+  number                \tab as.numeric   \cr
+  number_1dp            \tab as.numeric   \cr
+  number_2dp            \tab as.numeric   \cr
+  integer               \tab as.integer   \cr
+  ..default..           \tab as.character \cr
+}
+
+Variables inputted into REDCap via radio button or dropdown lists (multiple
+choice - pick one) are coerced to factors by default but can be returned as
+characters if the argument \code{factors = FALSE} is set.
+
+Calculated and slider (visual analog scale) variables are coerced via
+\code{as.numeric}.
+
+Yes/No and True/False variables are include as integer values 0 = No or
+False, and 1 for Yes or True.
+
+Checkboxes are the most difficult to work with between the metadata and
+records.  A checkbox field_name in the metadata could be, for example,
+"eg_checkbox" and the columns in the records will be "eg_checkbox___<code>"
+were "code" could be numbers, or character strings.  REDCapExporter attempts
+to coerce the "eg_checkbox___<code>" columns to integer values, 0 = unchecked
+and 1 = checked.
 }
 \examples{
 

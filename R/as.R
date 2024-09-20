@@ -22,7 +22,7 @@ NULL
 #' @rdname as
 #' @method as.data.frame rcer_raw_metadata
 as.data.frame.rcer_raw_metadata <- function(x, ...) {
-  out <- read_text(x, class = 'data.frame')
+  out <- read_text(x)
   class(out) <- c("rcer_metadata", class(out))
   out
 }
@@ -31,7 +31,7 @@ as.data.frame.rcer_raw_metadata <- function(x, ...) {
 #' @rdname as
 #' @method as.data.frame rcer_raw_record
 as.data.frame.rcer_raw_record <- function(x, ...) {
-  out <- read_text(x, class = 'data.frame')
+  out <- read_text(x)
   class(out) <- c("rcer_record", class(out))
   out
 }
@@ -40,8 +40,8 @@ as.data.frame.rcer_raw_record <- function(x, ...) {
 #' @rdname as
 #' @method as.data.frame rcer_raw_project
 as.data.frame.rcer_raw_project <- function(x, ...) {
-  out <- read_text(x, class = 'data.frame')
-  class(out) <- c("rcer_project_info", class(out))
+  out <- read_text(x)
+  class(out) <- c("rcer_project", class(out))
   out
 }
 
@@ -49,43 +49,7 @@ as.data.frame.rcer_raw_project <- function(x, ...) {
 #' @rdname as
 #' @method as.data.frame rcer_raw_user
 as.data.frame.rcer_raw_user <- function(x, ...) {
-  out <- read_text(x, class = 'data.frame')
-  class(out) <- c("rcer_user", class(out))
-  out
-}
-
-#' @export
-#' @rdname as
-#' @method as.data.table rcer_raw_metadata
-as.data.table.rcer_raw_metadata <- function(x, ...) {
-  out <- read_text(x, class = 'data.table')
-  class(out) <- c("rcer_metadata", class(out))
-  out
-}
-
-#' @export
-#' @rdname as
-#' @method as.data.table rcer_raw_record
-as.data.table.rcer_raw_record <- function(x, ...) {
-  out <- read_text(x, class = 'data.table')
-  class(out) <- c("rcer_record", class(out))
-  out
-}
-
-#' @export
-#' @rdname as
-#' @method as.data.table rcer_raw_project
-as.data.table.rcer_raw_project <- function(x, ...) {
-  out <- read_text(x, class = 'data.table')
-  class(out) <- c("rcer_project_info", class(out))
-  out
-}
-
-#' @export
-#' @rdname as
-#' @method as.data.table rcer_raw_user
-as.data.table.rcer_raw_user <- function(x, ...) {
-  out <- read_text(x, class = 'data.table')
+  out <- read_text(x)
   class(out) <- c("rcer_user", class(out))
   out
 }
@@ -98,23 +62,48 @@ as.data.table.rcer_raw_user <- function(x, ...) {
 #' user.  Used by the \code{as.data.frame} methods.
 #'
 #' @param x the raw return from the API call to REDCap
-#' @param class \code{"data.frame"} (default) or \code{"data.table"}
 #' @return a \code{data.frame}
 #'
-read_text <- function(x, class = "data.frame") {
+read_text <- function(x) {
   if (grepl("text/csv", attr(x, "Content-Type")[1])) {
     out <- utils::read.csv(text = x, colClasses = "character")
-  } else if (grepl("application/json", attr(x, "Content-Type")[1])) {
-    out <- rjson::fromJSON(json_str = x)
-    out <- lapply(out, as.data.frame, stringsAsFactors = FALSE)
-    out <- do.call(rbind, out)
-  } else {
-    stop(sprintf("Content-Type %s is not yet supported.",
-                 attr(x, "Content-Type")[1]))
-  }
 
-  if (class == "data.table") {
-    out <- data.table::as.data.table(out)
+    if ("forms_export" %in% names(out)) {
+
+      f <-
+        strsplit(out[["forms"]], ",") |>
+        lapply(strsplit, ":") |>
+        lapply(lapply, function(x) stats::setNames(data.frame(x[2]), x[1])) |>
+        lapply(as.data.frame) |>
+        do.call(rbind, args = _)
+      names(f) <- paste0("forms.", names(f))
+
+      fe <-
+        strsplit(out[["forms_export"]], ",") |>
+        lapply(strsplit, ":") |>
+        lapply(lapply, function(x) stats::setNames(data.frame(x[2]), x[1])) |>
+        lapply(as.data.frame) |>
+        do.call(rbind, args = _)
+      names(fe) <- paste0("forms_export.", names(fe))
+
+      out[["forms"]] <- NULL
+      out[["forms_export"]] <- NULL
+      out <- cbind(out, f, fe)
+
+    }
+
+  } else if (grepl("application/json", attr(x, "Content-Type")[1])) {
+    out <- rjson::fromJSON(json_str = x, simplify = FALSE)
+    if (is.list(out[[1]])) {
+      out <- lapply(out, as.data.frame, stringsAsFactors = FALSE)
+      out <- do.call(rbind, out)
+    } else {
+      out <- as.data.frame(out, stringsAsFactors = FALSE)
+    }
+    out <- as.data.frame(lapply(out, as.character))
+  } else {
+    stop(sprintf("Content-Type '%s' is not yet supported.",
+                 attr(x, "Content-Type")[1]))
   }
 
   out

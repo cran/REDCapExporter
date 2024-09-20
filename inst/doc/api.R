@@ -6,9 +6,6 @@ knitr::opts_chunk$set(collapse = TRUE, eval = FALSE)
 ## ----label = "namespace", eval = TRUE-----------------------------------------
 library(REDCapExporter)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  vignette(topic = "export", package = "REDCapExporter")
-
 ## -----------------------------------------------------------------------------
 #  Sys.setenv(REDCap_API_URI = "https://redcap.ucdenver.edu/api/")
 
@@ -21,11 +18,11 @@ library(REDCapExporter)
 ## -----------------------------------------------------------------------------
 #  Sys.setenv(REDCap_API_TOKEN = getPass::getPass())
 
-## -----------------------------------------------------------------------------
+## ----eval = FALSE-------------------------------------------------------------
 #  Sys.setenv(USER_KEY = "~/.ssh/vaults")  # ~/.ssh/id_rsa has a passphrase, ~/.ssh/vaults does not.
 #  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
-## ----label = "REDCap_API_sysvar"----------------------------------------------
+## ----label = "REDCap_API_sysvar", eval = FALSE--------------------------------
 #  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
 ## ----eval = FALSE-------------------------------------------------------------
@@ -53,7 +50,4 @@ str(avs_raw_metadata)
 ## ----label = "as_data_frame", eval = TRUE-------------------------------------
 avs_metadata <- as.data.frame(avs_raw_metadata)
 str(avs_metadata)
-
-## -----------------------------------------------------------------------------
-#  print(sessionInfo(), local = FALSE)
 
