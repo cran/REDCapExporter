@@ -1,8 +1,8 @@
-617844745db706b94f672a57913ddfae *DESCRIPTION
+30ec85b465424e0e0c43ce14d24147ee *DESCRIPTION
 b3117a80b905fc02a97be4c03273b6ef *NAMESPACE
-898d6985a16b4c6d1f6a05c451d13cb3 *NEWS.md
+e4e51304e5891b57546e73d105b645a9 *NEWS.md
 185931b9d0d79108be2e1a72c3172d95 *R/REDCapExporter-package.R
-ae57ff9dd430b4f3cc7f416a7023df25 *R/as.R
+6471bf5044cb519030ddb17666fd6fba *R/as.R
 096888ba3a367cba4fb19acfae4e2116 *R/build_r_data_package.R
 ffb0ede9f03fa9cef8003dcbaa82388a *R/col-type.R
 fcb91a7c2e006f3df6b5875d698daa3f *R/datasets.R
@@ -30,7 +30,7 @@ c3ab2b8bb1e4a299054dab39ee1c81b6 *inst/doc/formatting.R
 79be5d5ed73f2ec4a2a6f72bbd768084 *inst/doc/formatting.html
 f552c13162d55d68525600a25ea1d6f9 *inst/doc/redcap2package.R
 64844db463bad9cb2ec4030d9b1c86c7 *inst/doc/redcap2package.Rmd
-9904fba85946fcfbdb22661f7f504807 *inst/doc/redcap2package.html
+7a1a49b79b1fc68036173b2340a978c5 *inst/doc/redcap2package.html
 d557c10cd88b8a16c0a59e251ec637c0 *man/REDCapExporter-package.Rd
 beedbdb99f054eba26f34e66a6f99c0c *man/REDCapExporter_keyring.Rd
 c2b878087bd70a112c8e58ba5d8eed90 *man/as.Rd
@@ -47,7 +47,6 @@ ac6c8bc944356b8f7d65b7856d061fc6 *man/write_description_file.Rd
 f220e7f0777fb5c560ba856f9aa6d5e8 *tests/test-export.R
 95efebe0044e6de0982b5c2df56dd50e *tests/test-format_record.R
 fb5c0e5898c3e400cec4c566026b1052 *tests/test-keyring.R
-983c8faf64132b11671ac9d274aac89e *tests/testthat/test-format_records.R
 6ce141a7ab74cd3a3b9b0ef71ab43c7f *vignettes/api.Rmd
 808c63d71d68e3031aa817f46533248b *vignettes/formatting.Rmd
 64844db463bad9cb2ec4030d9b1c86c7 *vignettes/redcap2package.Rmd
