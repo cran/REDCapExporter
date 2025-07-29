@@ -7,29 +7,29 @@ knitr::opts_chunk$set(collapse = TRUE, eval = FALSE)
 library(REDCapExporter)
 
 ## -----------------------------------------------------------------------------
-#  Sys.setenv(REDCap_API_URI = "https://redcap.ucdenver.edu/api/")
+# Sys.setenv(REDCap_API_URI = "https://redcap.ucdenver.edu/api/")
 
 ## -----------------------------------------------------------------------------
-#  Sys.getenv("REDCap_API_format")
+# Sys.getenv("REDCap_API_format")
 
 ## -----------------------------------------------------------------------------
-#  Sys.setenv(REDCap_API_TOKEN = "YOURTOKENHERE")
+# Sys.setenv(REDCap_API_TOKEN = "YOURTOKENHERE")
 
 ## -----------------------------------------------------------------------------
-#  Sys.setenv(REDCap_API_TOKEN = getPass::getPass())
+# Sys.setenv(REDCap_API_TOKEN = getPass::getPass())
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  Sys.setenv(USER_KEY = "~/.ssh/vaults")  # ~/.ssh/id_rsa has a passphrase, ~/.ssh/vaults does not.
-#  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
+# Sys.setenv(USER_KEY = "~/.ssh/vaults")  # ~/.ssh/id_rsa has a passphrase, ~/.ssh/vaults does not.
+# Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
 ## ----label = "REDCap_API_sysvar", eval = FALSE--------------------------------
-#  Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
+# Sys.setenv(REDCap_API_TOKEN = secret::get_secret("2000_2001_Avalanche"))
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  REDCapExporter_keyring_check()
-#  REDCapExporter_add_api_token("Project1")
-#  REDCapExporter_add_api_token("Project2")
-#  Sys.setenv(REDCap_API_TOKEN = REDCapExporter_get_api_token("Project1"))
+# REDCapExporter_keyring_check()
+# REDCapExporter_add_api_token("Project1")
+# REDCapExporter_add_api_token("Project2")
+# Sys.setenv(REDCap_API_TOKEN = REDCapExporter_get_api_token("Project1"))
 
 ## ----eval = TRUE--------------------------------------------------------------
 data(avs_raw_core)
@@ -39,7 +39,7 @@ lapply(avs_raw_core, class)
 args(export_content)
 
 ## -----------------------------------------------------------------------------
-#  avs_raw_metadata <- export_content(content = "metadata")
+# avs_raw_metadata <- export_content(content = "metadata")
 
 ## ----label = "example_raw_metadata", eval = TRUE------------------------------
 ls()

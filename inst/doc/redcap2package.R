@@ -34,8 +34,8 @@ install.packages(pkgs = tar_ball, lib = temppath)
 
 
 ## ----eval = FALSE-------------------------------------------------------------
-#  library(rcd14465, lib.loc = temppath)
-#  
+# library(rcd14465, lib.loc = temppath)
+# 
 
 ## ----include = FALSE----------------------------------------------------------
 do.call(library, args = list(package = "rcd14465", character.only = TRUE, lib.loc = temppath))

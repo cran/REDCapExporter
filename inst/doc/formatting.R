@@ -94,5 +94,5 @@ summary(avsDF2$position)
 table(avsDF2$position)
 
 ## ----echo = TRUE, eval = FALSE------------------------------------------------
-#  ?col_type
+# ?col_type
 
