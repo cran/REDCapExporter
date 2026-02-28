@@ -1,6 +1,6 @@
 Package: REDCapExporter
 Title: Automated Construction of R Data Packages from REDCap Projects
-Version: 0.3.2
+Version: 0.3.3
 Authors@R: c(
     person(given = "Peter", family = "DeWitt",  email = "peter.dewitt@cuanschutz.edu", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6391-0795"))
     )
@@ -21,11 +21,11 @@ Imports: curl, keyring, lubridate, rjson
 Suggests: devtools, fs, getPass, kableExtra, knitr, magrittr, qwraps2
         (> 0.4.1), rmarkdown, secret
 VignetteBuilder: knitr
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 NeedsCompilation: no
-Packaged: 2025-07-25 20:22:32 UTC; peterdewitt
+Packaged: 2026-02-28 16:48:37 UTC; peterdewitt
 Author: Peter DeWitt [aut, cre] (ORCID:
     <https://orcid.org/0000-0002-6391-0795>)
 Maintainer: Peter DeWitt <peter.dewitt@cuanschutz.edu>
 Repository: CRAN
-Date/Publication: 2025-07-29 09:20:27 UTC
+Date/Publication: 2026-02-28 17:10:09 UTC
