@@ -431,7 +431,7 @@ have the creator role assigned.</p>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">path         =</span> temppath,</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">author_roles =</span> <span class="fu">list</span>(<span class="at">dewittp =</span> <span class="fu">c</span>(<span class="st">&quot;cre&quot;</span>, <span class="st">&quot;aut&quot;</span>))</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="do">## Creating source package at /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//RtmpIi5d2q/rcd14465</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="do">## Creating source package at /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//Rtmp7t37jL/rcd14465</span></span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="do">## ℹ Updating rcd14465 documentation</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="do">## First time using roxygen2. Upgrading automatically...</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="do">## ℹ Setting RoxygenNote to &quot;7.3.3&quot;</span></span>
@@ -443,7 +443,7 @@ have the creator role assigned.</p>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="do">## Writing &#39;record.Rd&#39;</span></span></code></pre></div>
 <p>The resulting directory is: echo = FALSE, results = “markup”</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(temppath)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">## /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//RtmpIi5d2q</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">## /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//Rtmp7t37jL</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## └── rcd14465</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="do">##     ├── DESCRIPTION</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">##     ├── LICENSE</span></span>
@@ -479,7 +479,7 @@ This name is also used in the DESCRIPTION file.</p>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##                 [,1]                                                                                                                                                                                                                                                                                                                                                      </span></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Package         &quot;rcd14465&quot;                                                                                                                                                                                                                                                                                                                                                </span></span>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## Title           &quot;2000-2001 Colorado Avalanche&quot;                                                                                                                                                                                                                                                                                                                            </span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Version         &quot;2026.02.28.09.48&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Version         &quot;2026.03.09.12.01&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## Authors@R       &quot;c(person(given = \&quot;Tell\&quot;, family = \&quot;Bennett\&quot;, email = \&quot;tell.bennett@ucdenver.edu\&quot;, role = c(\&quot;ctb\&quot;)),\nperson(given = \&quot;Peter\&quot;, family = \&quot;DeWitt\&quot;, email = \&quot;peter.dewitt@cuanschutz.edu\&quot;, role = c(\&quot;cre\&quot;, \&quot;aut\&quot;)),\nperson(given = \&quot;Alexandria\&quot;, family = \&quot;Jensen\&quot;, email = \&quot;alexandria.jensen@cuanschutz.edu\&quot;, role = c(\&quot;ctb\&quot;)))&quot;</span></span>
 <span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Description     &quot;Data and documentation from the REDCap Project.&quot;                                                                                                                                                                                                                                                                                                         </span></span>
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## License         &quot;file LICENSE&quot;                                                                                                                                                                                                                                                                                                                                            </span></span>
@@ -512,54 +512,15 @@ which can be accessed in an interactive R session.</p>
 Package</h2>
 <p>Let’s install the package and explore the contents.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>tar_ball <span class="ot">&lt;-</span> devtools<span class="sc">::</span><span class="fu">build</span>(<span class="at">pkg =</span> prj_dir)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="do">## ── R CMD build ─────────────────────────────────────────────────────────────────</span></span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="do">## * checking for file ‘/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q/rcd14465/DESCRIPTION’ ... OK</span></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="do">## * preparing ‘rcd14465’:</span></span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="do">## * checking DESCRIPTION meta-information ... OK</span></span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="do">## * checking for LF line-endings in source and make files and shell scripts</span></span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="do">## * checking for empty or unneeded directories</span></span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="do">##   NB: this package now depends on R (&gt;= 3.5.0)</span></span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="do">##   </span><span class="al">WARNING</span><span class="do">: Added dependency on R &gt;= 3.5.0 because serialized objects in</span></span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="do">##   serialize/load version 3 cannot be read in older versions of R.</span></span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="do">##   File(s) containing such objects:</span></span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="do">##     ‘rcd14465/data/metadata.rda’ ‘rcd14465/data/project.rda’</span></span>
-<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="do">##     ‘rcd14465/data/record.rda’ ‘rcd14465/data/user.rda’</span></span>
-<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/metadata.rds’</span></span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/project.rds’</span></span>
-<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="do">##     ‘rcd14465/inst/raw-data/record.rds’ ‘rcd14465/inst/raw-data/user.rds’</span></span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="do">## * building ‘rcd14465_2026.02.28.09.48.tar.gz’</span></span>
-<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>tar_ball</span>
-<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="do">## [1] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q/rcd14465_2026.02.28.09.48.tar.gz&quot;</span></span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="at">pkgs =</span> tar_ball, <span class="at">lib =</span> temppath)</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="do">## inferring &#39;repos = NULL&#39; from &#39;pkgs&#39;</span></span></code></pre></div>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>tar_ball</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="at">pkgs =</span> tar_ball, <span class="at">lib =</span> temppath)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(rcd14465, <span class="at">lib.loc =</span> temppath)</span></code></pre></div>
 <p>The available data sets:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;rcd14465&quot;</span>)<span class="sc">$</span>results</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="do">##      Package   </span></span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="do">## [1,] &quot;rcd14465&quot;</span></span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="do">## [2,] &quot;rcd14465&quot;</span></span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="do">## [3,] &quot;rcd14465&quot;</span></span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="do">## [4,] &quot;rcd14465&quot;</span></span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="do">##      LibPath                                                              </span></span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="do">## [1,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q&quot;</span></span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="do">## [2,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q&quot;</span></span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="do">## [3,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q&quot;</span></span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="do">## [4,] &quot;/private/var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T/RtmpIi5d2q&quot;</span></span>
-<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="do">##      Item       Title     </span></span>
-<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a><span class="do">## [1,] &quot;metadata&quot; &quot;Metadata&quot;</span></span>
-<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a><span class="do">## [2,] &quot;project&quot;  &quot;Project&quot; </span></span>
-<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a><span class="do">## [3,] &quot;record&quot;   &quot;Record&quot;  </span></span>
-<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a><span class="do">## [4,] &quot;user&quot;     &quot;User&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;rcd14465&quot;</span>)<span class="sc">$</span>results</span></code></pre></div>
 <p>A simple data analysis question: how many goals were scored by
 position?</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">aggregate</span>(goals <span class="sc">~</span> position, <span class="at">data =</span> record, <span class="at">FUN =</span> sum)</span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="do">##     position goals</span></span>
-<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="do">## 1       Goal     0</span></span>
-<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">## 2  Left Wing    71</span></span>
-<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="do">## 3 Right Wing    72</span></span>
-<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="do">## 4     Center    93</span></span>
-<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="do">## 5    Defence    34</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">aggregate</span>(goals <span class="sc">~</span> position, <span class="at">data =</span> record, <span class="at">FUN =</span> sum)</span></code></pre></div>
 </div>
 </div>
 

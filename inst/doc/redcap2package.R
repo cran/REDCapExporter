@@ -26,23 +26,23 @@ t(read.dcf(paste(prj_dir, "DESCRIPTION", sep = "/")))
 ## -----------------------------------------------------------------------------
 cat(readLines(paste(prj_dir[1], "LICENSE", sep = "/")), sep = "\n")
 
-## -----------------------------------------------------------------------------
-tar_ball <- devtools::build(pkg = prj_dir)
-tar_ball
-
-install.packages(pkgs = tar_ball, lib = temppath)
-
+## ----eval = FALSE-------------------------------------------------------------
+# tar_ball <- devtools::build(pkg = prj_dir)
+# tar_ball
+# 
+# install.packages(pkgs = tar_ball, lib = temppath)
+# 
 
 ## ----eval = FALSE-------------------------------------------------------------
 # library(rcd14465, lib.loc = temppath)
 # 
 
-## ----include = FALSE----------------------------------------------------------
-do.call(library, args = list(package = "rcd14465", character.only = TRUE, lib.loc = temppath))
+## ----include = FALSE, eval = FALSE--------------------------------------------
+# do.call(library, args = list(package = "rcd14465", character.only = TRUE, lib.loc = temppath))
 
-## -----------------------------------------------------------------------------
-data(package = "rcd14465")$results
+## ----eval = FALSE-------------------------------------------------------------
+# data(package = "rcd14465")$results
 
-## -----------------------------------------------------------------------------
-aggregate(goals ~ position, data = record, FUN = sum)
+## ----eval = FALSE-------------------------------------------------------------
+# aggregate(goals ~ position, data = record, FUN = sum)
 
