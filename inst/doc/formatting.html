@@ -572,7 +572,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 
 <p>This vignette covers different methods for formatting the records
-from REDCap into an analysis ready data set. It is assumed that the
+from REDCap into an analysis-ready data set. It is assumed that the
 reader is familiar with the process for exporting data from REDCap to R
 as described in
 <code>vignette(&quot;api&quot;, package = &quot;REDCapExporter&quot;)</code></p>
@@ -580,7 +580,7 @@ as described in
 provided in the package from the 2000-2001 National Hockey League
 Stanley Cup Champion Colorado Avalanche. The data was transcribed from
 <a href="https://www.hockey-reference.com/teams/COL/2001.html">Hockey
-Reference</a> into a REDCap Project hosed at the University of Colorado
+Reference</a> into a REDCap project hosted at the University of Colorado
 Denver.</p>
 <p>The data sets we will work with in this vignette are:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(REDCapExporter)</span>
@@ -596,8 +596,8 @@ REDCapExporter:</p>
 <div id="coercion-to-data.frame" class="section level1">
 <h1>Coercion to data.frame</h1>
 <p>The object returned from <code>export_content</code> is a string in
-either csv or json format. To have that information as a data.frame call
-<code>as.data.frame</code>.</p>
+either csv or json format. To have that information as a data.frame,
+call <code>as.data.frame</code>.</p>
 <p>This method works for the metadata and records directly.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>avs_metadata_DF <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(avs_raw_metadata)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>avs_record_DF   <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(avs_raw_record)</span></code></pre></div>
@@ -8390,14 +8390,14 @@ Points
 “text” with no value for “select_choices_or_calculations” and no value
 for “text_validation_type_or_show_slider_number”. This is interpreted,
 then, as just a text field and should be character vector in the
-data.frame. Obviously the user could coerce to integer of numeric is
-desired and if appropriate.</p>
+data.frame. The user could coerce these columns to integer or numeric
+values if desired and appropriate.</p>
 <p>For height, note that the field_type is “text” and the
 “text_validation_type_or_show_slider_number” is “integer”, hence the
 coercion from the raw data to integer when building the data.frame.
 Lastly, the points are a calculated field and set to numeric.</p>
 <p>REDCapExporter attempts to make reasonable assumptions for the data
-types base on the metadata. For example, dates in REDCap can by entered
+types based on the metadata. For example, dates in REDCap can be entered
 and validated in Year-Month-Day, Month-Day-Year, and Day-Month-Year
 formats. The raw data is all in Year-Month-Day format.</p>
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:200px; overflow-x: scroll; width:700px; ">
@@ -8524,8 +8524,8 @@ instead of factors you can modify the call to <code>col_type</code></p>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">class</span>(avsDF2<span class="sc">$</span>position)</span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="do">## [1] &quot;character&quot;</span></span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="fu">summary</span>(avsDF2<span class="sc">$</span>position)</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="do">##    Length     Class      Mode </span></span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="do">##        32 character character</span></span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="do">##    Length  N.unique   N.blank Min.nchar Max.nchar </span></span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a><span class="do">##        32         5         0         4        10</span></span>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a><span class="fu">table</span>(avsDF2<span class="sc">$</span>position)</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb16-10"><a href="#cb16-10" tabindex="-1"></a><span class="do">##     Center    Defence       Goal  Left Wing Right Wing </span></span>

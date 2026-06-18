@@ -342,7 +342,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <div id="TOC">
 <ul>
-<li><a href="#exporting-a-redcap-project-to-a-r-data-package" id="toc-exporting-a-redcap-project-to-a-r-data-package"><span class="toc-section-number">1</span> Exporting a REDCap Project to a R
+<li><a href="#exporting-a-redcap-project-to-an-r-data-package" id="toc-exporting-a-redcap-project-to-an-r-data-package"><span class="toc-section-number">1</span> Exporting a REDCap Project to an R
 Data Package</a>
 <ul>
 <li><a href="#details-on-exported-files" id="toc-details-on-exported-files"><span class="toc-section-number">1.1</span> Details on exported Files</a></li>
@@ -373,57 +373,57 @@ provided.</p>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="do">##  $ project_raw : &#39;rcer_raw_project&#39; chr &quot;project_id,project_title,creation_time,production_time,in_production,project_language,purpose,purpose_other,pro&quot;| __truncated__</span></span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000115 0.179744 ...</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000325 0.17077 ...</span></span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-02-28 09:03:22&quot;</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-06-17 17:33:54&quot;</span></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="do">##  $ metadata_raw: &#39;rcer_raw_metadata&#39; chr &quot;field_name,form_name,section_header,field_type,field_label,select_choices_or_calculations,field_note,text_valid&quot;| __truncated__</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.00011 0.17918 ...</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000238 0.229578 ...</span></span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-02-28 09:03:22&quot;</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##  $ user_raw    : &#39;rcer_raw_user&#39; chr &quot;username,email,firstname,lastname,expiration,data_access_group,data_access_group_id,design,alerts,user_rights,d&quot;| __truncated__</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-06-17 17:33:54&quot;</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="do">##  $ user_raw    : &#39;rcer_raw_user&#39; chr &quot;username,email,firstname,lastname,expiration,data_access_group,data_access_group_id,data_access_group_label,des&quot;| __truncated__</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000112 0.207088 ...</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000154 0.159667 ...</span></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-02-28 09:03:22&quot;</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-06-17 17:33:54&quot;</span></span>
 <span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="do">##  $ record_raw  : &#39;rcer_raw_record&#39; chr &quot;record_id,uniform_number,firstname,lastname,hof,nationality,position,birthdate,first_nhl_game,last_nhl_game,hei&quot;| __truncated__</span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;url&quot;)= chr &quot;https://redcap.ucdenver.edu/api/&quot;</span></span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;status_code&quot;)= int 200</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000231 0.287257 ...</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;times&quot;)= Named num [1:6] 0 0 0 0.000138 0.344835 ...</span></span>
 <span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="do">##   .. ..- attr(*, &quot;names&quot;)= chr [1:6] &quot;redirect&quot; &quot;namelookup&quot; &quot;connect&quot; &quot;pretransfer&quot; ...</span></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;Content-Type&quot;)= chr &quot;text/csv; charset=utf-8&quot;</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-02-28 09:03:22&quot;</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="do">##   ..- attr(*, &quot;accessed&quot;)= POSIXct[1:1], format: &quot;2026-06-17 17:33:55&quot;</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="do">##  - attr(*, &quot;class&quot;)= chr &quot;rcer_rccore&quot;</span></span></code></pre></div>
 <p><code>avs_raw_core</code> is the result of calling
 <code>export_core</code> and contains data on the 2000-2001 Stanley Cup
 Champion Colorado Avalanche. The data was transcribed from <a href="https://www.hockey-reference.com/teams/COL/2001.html">Hockey
-Reference</a> into a REDCap Project hosed at the University of Colorado
+Reference</a> into a REDCap project hosted at the University of Colorado
 Denver.</p>
-<div id="exporting-a-redcap-project-to-a-r-data-package" class="section level1" number="1">
+<div id="exporting-a-redcap-project-to-an-r-data-package" class="section level1" number="1">
 <h1><span class="header-section-number">1</span> Exporting a REDCap
-Project to a R Data Package</h1>
-<p>Exporting a REDCap project to a R data package is done with a call to
-<code>build_r_data_package</code>. If the user passes the uri for the
+Project to an R Data Package</h1>
+<p>Exporting a REDCap project to an R data package is done with a call
+to <code>build_r_data_package</code>. If the user passes the uri for the
 API and an API token a call to <code>export_core</code> will be made.
 Alternatively, <code>build_r_data_package</code> is an S3 method and can
 be applied to a <code>rcer_rccore</code> object.</p>
-<p>To build the skeleton of a R data package you will need to pass in
-the core export from the REDCap project, a path for were the source code
-for the data package will be written, and some some information about
-the users. In this context, users are the persons who have, or had,
-access to the REDCap project and are listed under the UserRights section
-of the REDCap project. The user data from REDCap is used to construct
-the Author section of the DESCRIPTION file for the R data package to be
+<p>To build the skeleton of an R data package you will need to pass in
+the core export from the REDCap project, a path where the source code
+for the data package will be written, and some information about the
+users. In this context, users are the persons who have, or had, access
+to the REDCap project and are listed under the UserRights section of the
+REDCap project. The user data from REDCap is used to construct the
+Author section of the DESCRIPTION file for the R data package to be
 constructed. By default, all users are listed as ‘contributors’.
-Modification of the roles can be provide by a named list object. In the
-example below, the user dewittp is going to assigned the creator and
-author role. To be a valid R package, at least one user will need to
-have the creator role assigned.</p>
+Modification of the roles can be provided by a named list object. In the
+example below, the user dewittp is assigned the creator and author role.
+To be a valid R package, at least one user will need to have the creator
+role assigned.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>temppath <span class="ot">&lt;-</span> <span class="fu">tempdir</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">build_r_data_package</span>(</span>
@@ -431,41 +431,23 @@ have the creator role assigned.</p>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">path         =</span> temppath,</span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">author_roles =</span> <span class="fu">list</span>(<span class="at">dewittp =</span> <span class="fu">c</span>(<span class="st">&quot;cre&quot;</span>, <span class="st">&quot;aut&quot;</span>))</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>)</span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="do">## Creating source package at /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//Rtmp7t37jL/rcd14465</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="do">## ℹ Updating rcd14465 documentation</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="do">## First time using roxygen2. Upgrading automatically...</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="do">## ℹ Setting RoxygenNote to &quot;7.3.3&quot;</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="do">## ℹ Loading rcd14465</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="do">## Writing &#39;NAMESPACE&#39;</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="do">## Writing &#39;project.Rd&#39;</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="do">## Writing &#39;metadata.Rd&#39;</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="do">## Writing &#39;user.Rd&#39;</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="do">## Writing &#39;record.Rd&#39;</span></span></code></pre></div>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="do">## Creating source package at /var/folders/bm/2q07g7zd44j3xkqwn1f38tn80000gp/T//RtmpwfaWxE/rcd14465</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="do">## ℹ Loading rcd14465</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="do">## Writing &#39;NAMESPACE&#39;</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="do">## Writing &#39;project.Rd&#39;</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="do">## Writing &#39;metadata.Rd&#39;</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="do">## Writing &#39;user.Rd&#39;</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="do">## Writing &#39;record.Rd&#39;</span></span></code></pre></div>
 <p>The resulting directory is: echo = FALSE, results = “markup”</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>fs<span class="sc">::</span><span class="fu">dir_tree</span>(temppath)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">## /var/folders/fc/3hxyq4z94jx_7jr506b8ttlm0000gq/T//Rtmp7t37jL</span></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## └── rcd14465</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="do">##     ├── DESCRIPTION</span></span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">##     ├── LICENSE</span></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="do">##     ├── NAMESPACE</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="do">##     ├── R</span></span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="do">##     │   └── datasets.R</span></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="do">##     ├── data</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="do">##     │   ├── metadata.rda</span></span>
-<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="do">##     │   ├── project.rda</span></span>
-<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="do">##     │   ├── record.rda</span></span>
-<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="do">##     │   └── user.rda</span></span>
-<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="do">##     ├── inst</span></span>
-<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="do">##     │   └── raw-data</span></span>
-<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="do">##     │       ├── metadata.rds</span></span>
-<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="do">##     │       ├── project.rds</span></span>
-<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="do">##     │       ├── record.rds</span></span>
-<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="do">##     │       └── user.rds</span></span>
-<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="do">##     └── man</span></span>
-<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="do">##         ├── metadata.Rd</span></span>
-<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="do">##         ├── project.Rd</span></span>
-<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="do">##         ├── record.Rd</span></span>
-<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="do">##         └── user.Rd</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">list.files</span>(temppath, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">all.files =</span> <span class="cn">TRUE</span>, <span class="at">no.. =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="do">##  [1] &quot;rcd14465/DESCRIPTION&quot;                &quot;rcd14465/LICENSE&quot;                   </span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">##  [3] &quot;rcd14465/NAMESPACE&quot;                  &quot;rcd14465/R/datasets.R&quot;              </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="do">##  [5] &quot;rcd14465/data/metadata.rda&quot;          &quot;rcd14465/data/project.rda&quot;          </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="do">##  [7] &quot;rcd14465/data/record.rda&quot;            &quot;rcd14465/data/user.rda&quot;             </span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="do">##  [9] &quot;rcd14465/inst/raw-data/metadata.rds&quot; &quot;rcd14465/inst/raw-data/project.rds&quot; </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="do">## [11] &quot;rcd14465/inst/raw-data/record.rds&quot;   &quot;rcd14465/inst/raw-data/user.rds&quot;    </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="do">## [13] &quot;rcd14465/man/metadata.Rd&quot;            &quot;rcd14465/man/project.Rd&quot;            </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="do">## [15] &quot;rcd14465/man/record.Rd&quot;              &quot;rcd14465/man/user.Rd&quot;</span></span></code></pre></div>
 <div id="details-on-exported-files" class="section level2" number="1.1">
 <h2><span class="header-section-number">1.1</span> Details on exported
 Files</h2>
@@ -476,18 +458,18 @@ This name is also used in the DESCRIPTION file.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>prj_dir <span class="ot">&lt;-</span> <span class="fu">list.dirs</span>(temppath)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>prj_dir <span class="ot">&lt;-</span> prj_dir[<span class="fu">grepl</span>(<span class="st">&quot;/rcd</span><span class="sc">\\</span><span class="st">d+$&quot;</span>, prj_dir)]</span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">t</span>(<span class="fu">read.dcf</span>(<span class="fu">paste</span>(prj_dir, <span class="st">&quot;DESCRIPTION&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)))</span>
-<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##                 [,1]                                                                                                                                                                                                                                                                                                                                                      </span></span>
-<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Package         &quot;rcd14465&quot;                                                                                                                                                                                                                                                                                                                                                </span></span>
-<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## Title           &quot;2000-2001 Colorado Avalanche&quot;                                                                                                                                                                                                                                                                                                                            </span></span>
-<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Version         &quot;2026.03.09.12.01&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
-<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## Authors@R       &quot;c(person(given = \&quot;Tell\&quot;, family = \&quot;Bennett\&quot;, email = \&quot;tell.bennett@ucdenver.edu\&quot;, role = c(\&quot;ctb\&quot;)),\nperson(given = \&quot;Peter\&quot;, family = \&quot;DeWitt\&quot;, email = \&quot;peter.dewitt@cuanschutz.edu\&quot;, role = c(\&quot;cre\&quot;, \&quot;aut\&quot;)),\nperson(given = \&quot;Alexandria\&quot;, family = \&quot;Jensen\&quot;, email = \&quot;alexandria.jensen@cuanschutz.edu\&quot;, role = c(\&quot;ctb\&quot;)))&quot;</span></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Description     &quot;Data and documentation from the REDCap Project.&quot;                                                                                                                                                                                                                                                                                                         </span></span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## License         &quot;file LICENSE&quot;                                                                                                                                                                                                                                                                                                                                            </span></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">## Encoding        &quot;UTF-8&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">## LazyData        &quot;true&quot;                                                                                                                                                                                                                                                                                                                                                    </span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## Suggests        &quot;knitr&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## VignetteBuilder &quot;knitr&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## RoxygenNote     &quot;7.3.3&quot;</span></span></code></pre></div>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="do">##                         [,1]                                                                                                                                                                                                                                                                                                                                                      </span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="do">## Package                 &quot;rcd14465&quot;                                                                                                                                                                                                                                                                                                                                                </span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="do">## Title                   &quot;2000-2001 Colorado Avalanche&quot;                                                                                                                                                                                                                                                                                                                            </span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="do">## Version                 &quot;2026.06.17.18.16&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="do">## Authors@R               &quot;c(person(given = \&quot;Tell\&quot;, family = \&quot;Bennett\&quot;, email = \&quot;tell.bennett@ucdenver.edu\&quot;, role = c(\&quot;ctb\&quot;)),\nperson(given = \&quot;Peter\&quot;, family = \&quot;DeWitt\&quot;, email = \&quot;peter.dewitt@cuanschutz.edu\&quot;, role = c(\&quot;cre\&quot;, \&quot;aut\&quot;)),\nperson(given = \&quot;Alexandria\&quot;, family = \&quot;Jensen\&quot;, email = \&quot;alexandria.jensen@cuanschutz.edu\&quot;, role = c(\&quot;ctb\&quot;)))&quot;</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="do">## Description             &quot;Data and documentation from the REDCap Project.&quot;                                                                                                                                                                                                                                                                                                         </span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="do">## License                 &quot;file LICENSE&quot;                                                                                                                                                                                                                                                                                                                                            </span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="do">## Encoding                &quot;UTF-8&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="do">## LazyData                &quot;true&quot;                                                                                                                                                                                                                                                                                                                                                    </span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="do">## Suggests                &quot;knitr,\nroxygen2&quot;                                                                                                                                                                                                                                                                                                                                        </span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="do">## VignetteBuilder         &quot;knitr&quot;                                                                                                                                                                                                                                                                                                                                                   </span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="do">## Config/roxygen2/version &quot;8.0.0&quot;</span></span></code></pre></div>
 <p>The title comes from the project info recorded in REDCap. The version
 number is set as the year.month.day.hour.minute of the export. As noted
 above, the Author field is built from the user data stored in
@@ -511,10 +493,15 @@ which can be accessed in an interactive R session.</p>
 <h2><span class="header-section-number">1.2</span> Using the Exported
 Package</h2>
 <p>Let’s install the package and explore the contents.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>tar_ball <span class="ot">&lt;-</span> devtools<span class="sc">::</span><span class="fu">build</span>(<span class="at">pkg =</span> prj_dir)</span>
-<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>tar_ball</span>
-<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
-<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="at">pkgs =</span> tar_ball, <span class="at">lib =</span> temppath)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">system2</span>(<span class="st">&quot;R&quot;</span>, <span class="fu">c</span>(<span class="st">&quot;CMD&quot;</span>, <span class="st">&quot;build&quot;</span>, prj_dir))</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>tar_ball <span class="ot">&lt;-</span> <span class="fu">list.files</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="fu">paste0</span>(<span class="fu">basename</span>(prj_dir), <span class="st">&quot;_.*[.]tar[.]gz$&quot;</span>),</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>tar_ball <span class="ot">&lt;-</span> tar_ball[<span class="fu">which.max</span>(<span class="fu">file.info</span>(tar_ball)<span class="sc">$</span>mtime)]</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>tar_ball</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="at">pkgs =</span> tar_ball, <span class="at">lib =</span> temppath)</span></code></pre></div>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(rcd14465, <span class="at">lib.loc =</span> temppath)</span></code></pre></div>
 <p>The available data sets:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">data</span>(<span class="at">package =</span> <span class="st">&quot;rcd14465&quot;</span>)<span class="sc">$</span>results</span></code></pre></div>

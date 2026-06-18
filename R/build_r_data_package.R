@@ -1,6 +1,6 @@
 #' Build R Data Package
 #'
-#' Build a R Data Package from the core contents of a REDCap Project.
+#' Build an R Data Package from the core contents of a REDCap Project.
 #'
 #' To export the data from a REDCap project you will need to have an API Token.
 #' Remember, the token is the equivalent of a username and password.  As such
@@ -25,7 +25,7 @@
 #' data(avs_raw_core)
 #' tmppth <- tempdir()
 #' build_r_data_package(avs_raw_core, tmppth, author_roles = list(dewittp = c("cre", "aut")))
-#' fs::dir_tree(tmppth)
+#' list.files(tmppth, recursive = TRUE, all.files = TRUE, no.. = TRUE)
 #'
 #' @export
 build_r_data_package <- function(x, ...) {
@@ -35,8 +35,8 @@ build_r_data_package <- function(x, ...) {
 #' @param path Path where the exported project source will be
 #' created/overwritten.
 #' @param author_roles a list naming specific roles for each user id found in
-#' the user table from an exported project.  By default all users with be
-#' contributors ('ctb').  You will need to define a author/creator.
+#' the user table from an exported project.  By default all users will be
+#' contributors ('ctb').  You will need to define an author/creator.
 #' @param verbose provide messages to tell the user what is happening
 #' @rdname build_r_data_package
 #' @export
@@ -130,10 +130,10 @@ build_r_data_package.rcer_rccore <- function(x, path = NULL, author_roles = NULL
       file = paste(path, "R/datasets.R", sep = "/")
   )
 
-  if (requireNamespace("devtools", quietly = TRUE)) {
-    devtools::document(path)
+  if (requireNamespace("roxygen2", quietly = TRUE)) {
+    roxygen2::roxygenize(path, roclets = c("namespace", "rd"))
   } else {
-    message("Skipping devtools::document(): 'devtools' is not available.")
+    message("Skipping documentation: 'roxygen2' is not available.")
   }
 
   invisible(TRUE)
